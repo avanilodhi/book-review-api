@@ -63,7 +63,7 @@ router.post('/:id/reviews', authenticate, async (req, res) => {
     }
   });
 
-//   PUT /books/:id – Update a book
+// PUT /books/:id – Update a book
   router.put('/:id', authenticate, async (req, res) => {
     try {
       const { id } = req.params;
@@ -106,7 +106,7 @@ router.post('/:id/reviews', authenticate, async (req, res) => {
     }
   });
   
-//   PUT /books/:bookId/reviews/:reviewId – Update a review
+// PUT /books/:bookId/reviews/:reviewId – Update a review
   router.put('/:bookId/reviews/:reviewId', authenticate, async (req, res) => {
     try {
       const { bookId, reviewId } = req.params;
@@ -145,7 +145,7 @@ router.post('/:id/reviews', authenticate, async (req, res) => {
       if (review.user.toString() !== req.user.id)
         return res.status(403).json({ message: 'Not authorized to delete this review' });
   
-      review.remove();
+      book.reviews.pull(reviewId);
       await book.save();
   
       res.json({ message: 'Review deleted successfully' });
